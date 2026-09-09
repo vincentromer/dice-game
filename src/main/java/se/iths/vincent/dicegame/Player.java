@@ -8,6 +8,9 @@ public class Player {
     private int score;
 
     public Player(String firstName, String lastName) {
+        if (firstName.isBlank() || lastName.isBlank()) {
+            throw new IllegalArgumentException("Namnen får inte vara tomma.");
+        }
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -22,11 +25,6 @@ public class Player {
 
     public void addToScore(int score) {
         this.score += score;
-    }
-
-    public int throwDice() {
-        Random numGen = new Random();
-        return numGen.nextInt(1, 7);
     }
 
     public void resetScore() {
