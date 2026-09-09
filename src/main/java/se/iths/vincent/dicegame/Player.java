@@ -1,10 +1,8 @@
 package se.iths.vincent.dicegame;
 
-import java.util.Random;
-
 public class Player {
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
     private int score;
 
     public Player(String firstName, String lastName) {
