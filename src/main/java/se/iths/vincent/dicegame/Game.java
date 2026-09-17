@@ -8,24 +8,9 @@ public class Game {
         Player playerTwo;
         int numberOfThrows = 2; // Mängden kast spelarna har
 
-        // Be användaren mata in två namn och initialisera sedan player-objekten
-        while(true) {
-            try {
-                String playerOneFirstName = IO.readln("Spelare ett, vad är ditt förnamn?\n").trim();
-                String playerOneLastName = IO.readln("Spelare ett, vad är ditt efternamn?\n").trim();
-                playerOne = new Player(playerOneFirstName, playerOneLastName);
-
-                String playerTwoFirstName = IO.readln("Spelare två, vad är ditt förnamn?\n").trim();
-                String playerTwoLastName = IO.readln("Spelare två, vad är ditt efternamn?\n").trim();
-                playerTwo = new Player(playerTwoFirstName, playerTwoLastName);
-                break;
-            }
-            catch (IllegalArgumentException e) {
-                IO.println(e.getMessage());
-                continue;
-            }
-        }
-
+        // Be användaren mata in två namn och initialisera player-objekten med createPlayer-metoden
+        playerOne = createPlayer("ett");
+        playerTwo = createPlayer("två");
         IO.println("Spelare: " + playerOne.getFullName() + " och " + playerTwo.getFullName() + "\n");
 
         // Börja spelet
@@ -62,7 +47,7 @@ public class Game {
             }
 
 
-            // Fråga spelaren om dom vill fortsätta
+            // Fråga användaren om dom vill fortsätta
             String playerContinue = IO.readln("Vill ni fortsätta? Y/N\n").trim();
             if (playerContinue.equalsIgnoreCase("y")) {
                 // Nollställer poängen
@@ -82,6 +67,24 @@ public class Game {
             }
 
 
+        }
+    }
+
+    // En metod som ber användaren mata in förnamn och efternamn. Gör så att koden kan återanvändas för spelare ett och två
+    private Player createPlayer(String playerNumber) {
+        IO.println("Mata in ett namn för spelare " + playerNumber);
+        while(true) {
+            try {
+                String playerFirstName = IO.readln("Förnamn?\n").trim();
+                String playerLastName = IO.readln("Efternamn?\n").trim();
+                Player player = new Player(playerFirstName, playerLastName);
+                IO.println("Spelare " + playerNumber + ": " + player.getFullName()  + "\n");
+                return player;
+            }
+            catch (IllegalArgumentException e) {
+                IO.println(e.getMessage());
+                continue;
+            }
         }
     }
 }

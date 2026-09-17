@@ -7,7 +7,7 @@ public class Player {
 
     public Player(String firstName, String lastName) {
         if (firstName.isBlank() || lastName.isBlank()) {
-            throw new IllegalArgumentException("Namnen får inte vara tomma.");
+            throw new IllegalArgumentException("Namnen får inte vara tomma.\n");
         }
         this.firstName = firstName;
         this.lastName = lastName;
