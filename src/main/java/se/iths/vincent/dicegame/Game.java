@@ -16,36 +16,20 @@ public class Game {
         // Börja spelet
         while(true) {
             // Spelare ett kastar tärningen
-            IO.println(playerOne.getFullName() + " kastar tärningen.\n");
-            for (int i = 0; i < numberOfThrows; i++) {
-                IO.readln("Tryck retur för att slå tärningen\n"); // Pausa programmet för att låta spelaren slå.
-                int number = Dice.throwDice();
-                IO.println("Kast " + (i+1) + ": " + number + "\n"); // Adderar index med 1 för att inte börja på 'kast 0'
-                playerOne.addToScore(number);
-            }
-            IO.println(playerOne.getFullName() + "'s poäng: " + playerOne.getScore() + "\n");
-
+            playDice(playerOne, numberOfThrows);
             // Spelare två kastar tärningen
-            IO.println(playerTwo.getFullName() + " kastar tärningen.\n");
-            for (int i = 0; i < numberOfThrows; i++) {
-                IO.readln("Tryck retur för att slå tärningen\n");
-                int number = Dice.throwDice();
-                IO.println("Kast " + (i+1) + ": " + number + "\n");
-                playerTwo.addToScore(number);
-            }
-            IO.println(playerTwo.getFullName() + "'s poäng: " + playerTwo.getScore() + "\n");
+            playDice(playerTwo, numberOfThrows);
 
             // Kolla poängen och utse en vinnare
             if (playerOne.getScore() > playerTwo.getScore()) {
                 IO.println(playerOne.getFullName() + " vinner!" + "\n");
             }
-            else if(playerOne.getScore() == playerTwo.getScore()) {
+            else if (playerOne.getScore() == playerTwo.getScore()) {
                 IO.println("Oavgjort!");
             }
             else { // Om poängen inte är lika eller spelare ett inte har vunnit så har spelare två vunnit
                 IO.println(playerTwo.getFullName() + " vinner!");
             }
-
 
             // Fråga användaren om dom vill fortsätta
             String playerContinue = IO.readln("Vill ni fortsätta? Y/N\n").trim();
@@ -70,7 +54,8 @@ public class Game {
         }
     }
 
-    // En metod som ber användaren mata in förnamn och efternamn. Gör så att koden kan återanvändas för spelare ett och två
+    // En metod som ber användaren mata in förnamn och efternamn.
+    // Gör så att koden kan återanvändas för spelare ett och två
     private Player createPlayer(String playerNumber) {
         IO.println("Mata in ett namn för spelare " + playerNumber);
         while(true) {
@@ -86,5 +71,18 @@ public class Game {
                 continue;
             }
         }
+    }
+
+    // En metod som ber spelarna trycka på retur för att slumpa ett nummer och adderar det sedan till deras poäng.
+    // Kan återanvändas för båda spelarna som createPlayer.
+    private void playDice(Player player, int numberOfThrows) {
+        IO.println(player.getFullName() + " kastar tärningen.\n");
+        for (int i = 0; i < numberOfThrows; i++) {
+            IO.readln("Tryck retur för att slå tärningen\n"); // Pausa programmet för att låta spelaren slå.
+            int number = Dice.throwDice();
+            IO.println("Kast " + (i+1) + ": " + number + "\n"); // Adderar index med 1 för att inte börja på 'kast 0'
+            player.addToScore(number);
+        }
+        IO.println(player.getFullName() + "'s poäng: " + player.getScore() + "\n");
     }
 }
