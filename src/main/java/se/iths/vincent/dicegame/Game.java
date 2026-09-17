@@ -58,7 +58,7 @@ public class Game {
     }
 
     // En metod som ber användaren mata in förnamn och efternamn.
-    // Gör så att koden kan återanvändas för spelare ett och två
+    // Gör så att koden kan återanvändas för spelare ett och två. Main-metoden blir mindre rörig.
     private Player createPlayer(String playerNumber) {
         IO.println("Mata in ett namn för spelare " + playerNumber);
         while(true) {
@@ -76,8 +76,8 @@ public class Game {
         }
     }
 
-    // En metod som ber spelarna trycka på retur för att slumpa ett nummer och adderar det sedan till deras poäng.
-    // Kan återanvändas för båda spelarna som createPlayer.
+    // Metod för att kasta tärningen.
+    // Återanvänds för båda spelarna precis som createPlayer.
     private void playDice(Player player, int numberOfThrows) {
         IO.println(player.getFullName() + " kastar tärningen.\n");
         for (int i = 0; i < numberOfThrows; i++) {
