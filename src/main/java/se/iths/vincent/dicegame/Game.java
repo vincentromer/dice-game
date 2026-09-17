@@ -3,6 +3,7 @@ package se.iths.vincent.dicegame;
 
 public class Game {
     public void start() {
+        IO.println("Tärningsspel, vänligen mata in namn för två spelare.");
         // Deklarera player-objekten
         Player playerOne;
         Player playerTwo;
@@ -11,7 +12,7 @@ public class Game {
         // Be användaren mata in två namn och initialisera player-objekten med createPlayer-metoden
         playerOne = createPlayer("ett");
         playerTwo = createPlayer("två");
-        IO.println("Spelare: " + playerOne.getFullName() + " och " + playerTwo.getFullName() + "\n");
+        IO.println("Spelare: " + playerOne.getFullName() + " och " + playerTwo.getFullName());
 
         // Börja spelet
         while(true) {
@@ -21,8 +22,10 @@ public class Game {
             playDice(playerTwo, numberOfThrows);
 
             // Kolla poängen och utse en vinnare
+            IO.println(playerOne.getFullName() + ": " + playerOne.getScore());
+            IO.println(playerTwo.getFullName() + ": " + playerTwo.getScore());
             if (playerOne.getScore() > playerTwo.getScore()) {
-                IO.println(playerOne.getFullName() + " vinner!" + "\n");
+                IO.println(playerOne.getFullName() + " vinner!");
             }
             else if (playerOne.getScore() == playerTwo.getScore()) {
                 IO.println("Oavgjort!");
@@ -32,7 +35,7 @@ public class Game {
             }
 
             // Fråga användaren om dom vill fortsätta
-            String playerContinue = IO.readln("Vill ni fortsätta? Y/N\n").trim();
+            String playerContinue = IO.readln("\nVill ni fortsätta? [Y/N] ").trim();
             if (playerContinue.equalsIgnoreCase("y")) {
                 // Nollställer poängen
                 playerOne.resetScore();
@@ -60,8 +63,8 @@ public class Game {
         IO.println("Mata in ett namn för spelare " + playerNumber);
         while(true) {
             try {
-                String playerFirstName = IO.readln("Förnamn?\n").trim();
-                String playerLastName = IO.readln("Efternamn?\n").trim();
+                String playerFirstName = IO.readln("Förnamn: ").trim();
+                String playerLastName = IO.readln("Efternamn: ").trim();
                 Player player = new Player(playerFirstName, playerLastName);
                 IO.println("Spelare " + playerNumber + ": " + player.getFullName()  + "\n");
                 return player;
@@ -78,11 +81,11 @@ public class Game {
     private void playDice(Player player, int numberOfThrows) {
         IO.println(player.getFullName() + " kastar tärningen.\n");
         for (int i = 0; i < numberOfThrows; i++) {
-            IO.readln("Tryck retur för att slå tärningen\n"); // Pausa programmet för att låta spelaren slå.
+            IO.readln("Tryck retur för att slå tärningen"); // Pausa programmet för att låta spelaren slå.
             int number = Dice.throwDice();
-            IO.println("Kast " + (i+1) + ": " + number + "\n"); // Adderar index med 1 för att inte börja på 'kast 0'
+            IO.println("\nKast " + (i+1) + ": " + number + "\n"); // Adderar index med 1 för att inte börja på 'kast 0'
             player.addToScore(number);
         }
-        IO.println(player.getFullName() + "'s poäng: " + player.getScore() + "\n");
+       IO.println(player.getFullName() + "'s poäng: " + player.getScore() + "\n");
     }
 }
